@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URASWORKS | Creative Studio</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           COLOR PALETTE & VARIABLES
+           ========================================================================== */
+        :root {
+            --color-black: #0D0D0D;
+            --color-white: #FFFFFF;
+            --color-light-bg: #F5F5F7;
+            --color-light-grey: #E6E6E6;
+            --color-mid-grey: #8A8A8A;
+            --color-main-blue: #0A51FF;
+            --color-bright-blue: #3A66FF;
+            --color-accent-gold: #D4AF37;
+
+            --font-heading: 'Barlow Condensed', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ==========================================================================
+           RESET & BASE STYLES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-light-bg);
+            color: var(--color-black);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-heading);
+            text-transform: uppercase;
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .text-gold {
+            color: var(--color-accent-gold);
+        }
+
+        .text-muted {
+            color: var(--color-mid-grey);
+        }
+
+        /* ==========================================================================
+           BUTTONS
+           ========================================================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 14px 28px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border: 1px solid var(--color-black);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-main-blue);
+            border-color: var(--color-main-blue);
+            color: var(--color-white);
+            transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            background-color: var(--color-accent-gold);
+            color: var(--color-black);
+            border: 1px solid var(--color-accent-gold);
+        }
+
+        .btn-gold:hover {
+            background-color: var(--color-white);
+            border-color: var(--color-white);
+            color: var(--color-black);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           NAVIGATION
+           ========================================================================== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-white);
+            letter-spacing: 0.02em;
+        }
+
+        .logo span {
+            color: var(--color-accent-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--color-light-grey);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-accent-gold);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--color-white);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* Mobil Menü Masaüstünde Gizli */
+        .mobile-nav {
+            display: none;
+        }
+
+        /* ==========================================================================
+           SECTION 1: HERO (ANA EKRAN)
+           ========================================================================== */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            display: flex;
+            align-items: center;
+            padding-top: 140px;
+            padding-bottom: 60px;
+            overflow: hidden;
+        }
+
+        .hero-bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(10, 81, 255, 0.18) 0%, rgba(13, 13, 13, 0.95) 70%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.8rem, 6.5vw, 5.8rem);
+            margin-bottom: 28px;
+            text-transform: uppercase;
+            line-height: 1.08;
+        }
+
+        .hero-title span {
+            display: block;
+            margin-top: 6px;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+            color: var(--color-mid-grey);
+            margin-bottom: 40px;
+            font-weight: 300;
+            max-width: 600px;
+        }
+
+        /* ==========================================================================
+           SECTION 2: URASWORKS NEDİR?
+           ========================================================================== */
+        .about-intro {
+            padding: 140px 0;
+            background-color: var(--color-light-bg);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .section-title-large {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            color: var(--color-black);
+        }
+
+        .about-text {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            line-height: 1.5;
+            color: var(--color-black);
+            font-weight: 400;
+        }
+
+        .about-text p {
+            margin-bottom: 24px;
+        }
+
+        .about-text p strong {
+            font-weight: 600;
+            color: var(--color-main-blue);
+        }
+
+        /* ==========================================================================
+           SECTION 3: NE YAPIYORUZ?
+           ========================================================================== */
+        .services-section {
+            padding: 120px 0;
+            background-color: var(--color-white);
+            border-top: 1px solid var(--color-light-grey);
+            border-bottom: 1px solid var(--color-light-grey);
+        }
+
+        .services-header {
+            margin-bottom: 80px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            border-top: 2px solid var(--color-black);
+            padding-top: 24px;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            border-top-color: var(--color-accent-gold);
+            transform: translateY(-4px);
+        }
+
+        .service-num {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--color-mid-grey);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .service-title {
+            font-size: 2.2rem;
+            margin-bottom: 16px;
+            color: var(--color-black);
+        }
+
+        .service-desc {
+            color: var(--color-mid-grey);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           SECTION 4: YAKLAŞIMIMIZ
+           ========================================================================== */
+        .approach-section {
+            padding: 140px 0;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            position: relative;
+        }
+
+        .approach-content {
+            max-width: 900px;
+        }
+
+        .approach-title {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 40px;
+            color: var(--color-accent-gold);
+        }
+
+        .approach-text {
+            font-size: clamp(1.25rem, 2.2vw, 1.8rem);
+            font-weight: 300;
+            line-height: 1.5;
+            color: var(--color-light-grey);
+        }
+
+        .approach-text p {
+            margin-bottom: 24px;
+        }
+
+        /* ==========================================================================
+           SECTION 5: PORTFOLYO CTA
+           ========================================================================== */
+        .portfolio-cta-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--color-main-blue) 0%, #05267A 100%);
+            color: var(--color-white);
+            text-align: center;
+        }
+
+        .portfolio-cta-box {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .portfolio-cta-title {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            margin-bottom: 20px;
+            line-height: 1.05;
+        }
+
+        .portfolio-cta-sub {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* ==========================================================================
+           SECTION 6: NEDEN URASWORKS?
+           ========================================================================== */
+        .why-section {
+            padding: 140px 0;
+            background-color: var(--color-light-bg);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .why-card {
+            background-color: var(--color-white);
+            padding: 40px 30px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .why-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            border-color: var(--color-main-blue);
+        }
+
+        .why-card p {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--color-black);
+            line-height: 1.5;
+        }
+
+        /* ==========================================================================
+           SECTION 7: ÇALIŞMA SÜRECİ
+           ========================================================================== */
+        .process-section {
+            padding: 140px 0;
+            background-color: var(--color-white);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .process-step {
+            position: relative;
+        }
+
+        .step-num {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--color-light-grey);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            color: var(--color-black);
+        }
+
+        .step-desc {
+            color: var(--color-mid-grey);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           SECTION 8: HAKKIMIZDA
+           ========================================================================== */
+        .about-full {
+            padding: 140px 0;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .about-full-content {
+            max-width: 850px;
+        }
+
+        .about-full-title {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            margin-bottom: 24px;
+            color: var(--color-white);
+        }
+
+        .about-full-subtitle {
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            color: var(--color-accent-gold);
+            margin-bottom: 30px;
+            line-height: 1.3;
+        }
+
+        .about-full-desc {
+            font-size: 1.15rem;
+            color: var(--color-mid-grey);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .punchline {
+            font-family: var(--font-heading);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            color: var(--color-white);
+            letter-spacing: 0.02em;
+        }
+
+        /* ==========================================================================
+           SECTION 9: SON CTA & FOOTER
+           ========================================================================== */
+        .final-cta {
+            padding: 140px 0 100px 0;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            text-align: center;
+        }
+
+        .final-cta-title {
+            font-size: clamp(3rem, 7vw, 6rem);
+            margin-bottom: 20px;
+            line-height: 1.05;
+        }
+
+        .final-cta-sub {
+            font-size: 1.3rem;
+            color: var(--color-mid-grey);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        footer {
+            background-color: var(--color-black);
+            color: var(--color-mid-grey);
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.9rem;
+        }
+
+        .footer-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-socials a {
+            color: var(--color-light-grey);
+        }
+
+        .footer-socials a:hover {
+            color: var(--color-accent-gold);
+        }
+
+        /* ==========================================================================
+           RESPONSIVE STYLES
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .nav-links, .nav-cta {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .mobile-nav {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--color-black);
+                padding: 40px 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+                z-index: 999;
+            }
+
+            .mobile-nav.active {
+                display: block;
+            }
+
+            .mobile-nav ul {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                margin-bottom: 30px;
+            }
+
+            .mobile-nav ul a {
+                color: var(--color-white);
+                font-family: var(--font-heading);
+                font-size: 1.5rem;
+            }
+
+            .mobile-nav .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+         NAVIGATION HEADER
+         ========================================================================== -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">URASWORKS<span>.</span></a>
+            
+            <nav class="nav-links">
+                <a href="#ne-yapiyoruz">NE YAPIYORUZ</a>
+                <a href="#yaklasim">YAKLAŞIM</a>
+                <a href="#hakkimizda">HAKKIMIZDA</a>
+                <a href="https://www.instagram.com/urasworks?stkn=MWR2aTg4b2RxNnkwdw==" target="_blank" rel="noopener">İLETİŞİM</a>
+            </nav>
+
+            <div class="nav-cta">
+                <a href="https://www.instagram.com/urasworks?stkn=MWR2aTg4b2RxNnkwdw==" target="_blank" rel="noopener" class="btn btn-gold">PORTFOLYO TALEP ET →</a>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuToggle">☰</button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div class="mobile-nav" id="mobileNav">
+            <ul>
+                <li><a href="#ne-yapiyoruz" class="mobile-link">NE YAPIYORUZ</a></li>
+                <li><a href="#yaklasim" class="mobile-link">YAKLAŞIM</a></li>
+                <li><a href="#hakkimizda" class="mobile-link">HAKKIMIZDA</a></li>
+                <li><a href="https://www.instagram.com/urasworks?stkn=MWR2aTg4b2RxNnkwdw==" target="_blank" rel="noopener" class="mobile-link">İLETİŞİM</a></li>
+            </ul>
+            <a href="https://www.instagram.com/urasworks?stkn=MWR2aTg4b2RxNnkwdw==" target="_blank" rel="noopener" class="btn btn-gold">PORTFOLYO TALEP ET →</a>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         SECTION 1: ANA EKRAN (HERO)
+         ========================================================================== -->
+    <section class="hero-section">
+        <div class="hero-bg-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    İyi içerik dikkat çeker.
+                    <span class="text-gold">Doğru içerik iz bırakır.</span>
+                </h1>
+                <p class="hero-subtitle">Markalar için video, içerik ve yaratıcı iletişim çözümleri.</p>
+                <a href="https://www.instagram.com/urasworks?stkn=MWR2aTg4b2RxNnkwdw==" target="_blank" rel="noopener" class="btn btn-gold">BİZİMLE ÇALIŞ →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 2: URASWORKS NEDİR?
+         ========================================================================== -->
+    <section class="about-intro">
+        <div class="container">
+            <div class="about-grid">
+                <h2 class="section-title-large">Fikirden<br>son kareye.</h2>
+                <div class="about-text">
+                    <p>URASWORKS, markalar için video, içerik ve yaratıcı iletişim çözümleri üreten bağımsız bir creative studio'dur.</p>
+                    <p>Fikri buluyor, görsel dünyasını oluşturuyor ve onu doğru içerikle hayata geçiriyoruz.</p>
+                    <p><strong>Çünkü iyi görünen değil, doğru anlatılan işler hatırlanır.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 3: NE YAPIYORUZ?
+         ========================================================================== -->
+    <section class="services-section" id="ne-yapiyoruz">
+        <div class="container">
+            <div class="services-header">
+                <h2 class="section-title-large">NE YAPIYORUZ?</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <span class="service-num">01</span>
+                    <h3 class="service-title">VIDEO</h3>
+                    <p class="service-desc">Reklam filmleri, sosyal medya videoları, kısa format içerikler ve post-production.</p>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-num">02</span>
+                    <h3 class="service-title">CREATIVE CONTENT</h3>
+                    <p class="service-desc">Markaya özel fikir, konsept ve içerik üretimi.</p>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-num">03</span>
+                    <h3 class="service-title">SOCIAL MEDIA</h3>
+                    <p class="service-desc">Sosyal medya için içerik üretimi ve yaratıcı iletişim.</p>
+                </div>
+
+                <div class="service-card">
+                    <span class="service-num">04</span>
+                    <h3 class="service-title">POST PRODUCTION</h3>
+                    <p class="service-desc">Kurgu, motion graphics, renk, ses ve görsel sonlandırma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 4: YAKLAŞIMIMIZ
+         ========================================================================== -->
+    <section class="approach-section" id="yaklasim">
+        <div class="container">
+            <div class="approach-content">
+                <h2 class="approach-title">Her şey bir fikirle başlar.</h2>
+                <div class="approach-text">
+                    <p>İçerik üretmek kolay. Doğru içeriği üretmek başka bir mesele.</p>
+                    <p>Önce markayı ve anlatılması gereken şeyi anlarız. Sonra fikri görsele dönüştürürüz.</p>
+                    <p class="text-gold">Her projede amacımız daha fazla şey yapmak değil, doğru şeyi yapmak.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 5: PORTFOLYO CTA
+         ========================================================================== -->
+    <section class="portfolio-cta-section">
+        <div class="container">
+            <div class="portfolio-cta-box">
+                <h2 class="portfolio-cta-title">İşimizi anlatmak yerine, gösterelim.</h2>
+                <p class="portfolio-cta-sub">Çalışmalarımızı ve portfolyomuzu görmek için bizimle iletişime geçin.</p>
+                <a href="https://www.instagram.com/urasworks?stkn=MWR2aTg4b2RxNnkwdw==" target="_blank" rel="noopener" class="btn btn-gold">PORTFOLYO TALEP ET →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 6: NEDEN URASWORKS?
+         ========================================================================== -->
+    <section class="why-section">
+        <div class="container">
+            <h2 class="section-title-large">NEDEN URASWORKS?</h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <p>Büyük ekipler değil, doğru fikirler.</p>
+                </div>
+                <div class="why-card">
+                    <p>Projeleri kalabalıklaştırmak yerine sadeleştiriyoruz.</p>
+                </div>
+                <div class="why-card">
+                    <p>Fikrin, görüntünün ve mesajın aynı noktaya hizmet etmesine önem veriyoruz.</p>
+                </div>
+                <div class="why-card">
+                    <p>Her projeye aynı reçeteyi uygulamak yerine markaya göre yeni bir yol çiziyoruz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 7: ÇALIŞMA SÜRECİ
+         ========================================================================== -->
+    <section class="process-section">
+        <div class="container">
+            <h2 class="section-title-large">SÜREÇ</h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-num">01</div>
+                    <h3 class="step-title">ANLA</h3>
+                    <p class="step-desc">Markayı, hedefi ve ihtiyacı anlamak.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-num">02</div>
+                    <h3 class="step-title">TASARLA</h3>
+                    <p class="step-desc">Doğru fikri ve yaratıcı yaklaşımı oluşturmak.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-num">03</div>
+                    <h3 class="step-title">ÜRET</h3>
+                    <p class="step-desc">Fikri görüntüye, içeriğe ve tasarıma dönüştürmek.</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-num">04</div>
+                    <h3 class="step-title">YAYINLA</h3>
+                    <p class="step-desc">İçeriği doğru formatta ve doğru platformda kullanıma hazır hale getirmek.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 8: HAKKIMIZDA
+         ========================================================================== -->
+    <section class="about-full" id="hakkimizda">
+        <div class="container">
+            <div class="about-full-content">
+                <h2 class="about-full-title">URASWORKS</h2>
+                <p class="about-full-subtitle">Görüntüyle başlayan, fikirle şekillenen işler üretiyoruz.</p>
+                <p class="about-full-desc">Video prodüksiyonundan sosyal medya içeriklerine, yaratıcı fikirden post-production'a kadar markaların ihtiyaç duyduğu üretim süreçlerini tek bir yaratıcı bakış altında birleştiriyoruz.</p>
+                <div class="punchline">Az laf. Doğru fikir. Güçlü iş.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 9: SON CTA & FOOTER
+         ========================================================================== -->
+    <section class="final-cta">
+        <div class="container">
+            <h2 class="final-cta-title">Bir proje mi var?</h2>
+            <p class="final-cta-sub">Fikrinizi anlatın. Gerisini birlikte şekillendirelim.</p>
+            <a href="https://www.instagram.com/urasworks?stkn=MWR2aTg4b2RxNnkwdw==" target="_blank" rel="noopener" class="btn btn-gold">BİZİMLE İLETİŞİME GEÇ →</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <div>
+                <strong>URASWORKS</strong> | Creative Studio
+            </div>
+            <div class="footer-socials">
+                <a href="https://www.instagram.com/urasworks?stkn=MWR2aTg4b2RxNnkwdw==" target="_blank" rel="noopener">Instagram</a>
+                <a href="https://www.instagram.com/urasworks?stkn=MWR2aTg4b2RxNnkwdw==" target="_blank" rel="noopener">İletişim</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC
+         ========================================================================== -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
